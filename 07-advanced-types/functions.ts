@@ -11,4 +11,4 @@ function getLength(val: string | any[]) {
 
 const numberOfWords = getLength('does this work?')
 numberOfWords.length // works thanks to overloading
-const numItems = getLength(['aaa', 'bbb'])
+const numItems = getLength(['aaa', 'bbb']) 
