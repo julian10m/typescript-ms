@@ -71,7 +71,7 @@ class LinkedList<T>{
             previous = previous.next! 
         }
 
-        if(previous.next === this.tail) {
+        if(pos === this.length) {
             this.tail = previous
         }
         previous.next = previous.next!.next
