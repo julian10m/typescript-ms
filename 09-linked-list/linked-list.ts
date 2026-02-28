@@ -33,7 +33,7 @@ class LinkedList<T>{
         if(pos === 1) {
             node.next = this.root
             this.root = node
-            if(!this.length) this.tail = node; 
+            if(!this.root) this.tail = node; 
         } else if(pos === this.length + 1) {
             this.tail!.next = node
             this.tail = node
@@ -80,7 +80,7 @@ class LinkedList<T>{
       return this;   
     }
 
-    inverse() {
+    reverse() {
         if(this.length <= 1) {
             return this 
         }
@@ -98,6 +98,27 @@ class LinkedList<T>{
 
         this.root = prev
         return this;
+    }
+
+    find(value: T): { node: ListNode<T> , pos: number } | undefined {
+        let current = this.root
+        let pos = 1 
+        while(current) {
+            if(current.value === value )
+                return { node: current, pos}
+
+            current = current.next
+            pos++
+        }
+
+        return undefined
+    }
+
+    remove(value: T): boolean {
+        const found = this.find(value)
+        if (!found) return false;
+        this.removeAt(found.pos)
+        return true;
     }
 
     getLength(){
