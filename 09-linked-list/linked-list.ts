@@ -81,27 +81,22 @@ class LinkedList<T>{
     }
 
     inverse() {
-        if(!this.length || this.length === 1) {
+        if(this.length <= 1) {
             return this 
         }
 
-        let prev = this.root!
-        let current = prev.next!
-        let future = current.next
-        
-        prev.next = undefined
-        this.tail = prev 
+        this.tail = this.root 
+        let prev: ListNode<T> | undefined = undefined
+        let current = this.root
 
-        while(future){
+        while(current){
+            const next = current.next
             current.next = prev 
             prev = current 
-            current = future 
-            future = future.next            
+            current = next 
         }
-        
-        current.next = prev 
-        this.root = current
 
+        this.root = prev
         return this;
     }
 
