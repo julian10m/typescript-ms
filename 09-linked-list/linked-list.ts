@@ -52,6 +52,34 @@ class LinkedList<T>{
         return this
     }
 
+    removeAt(pos: number) {
+      if(pos < 1 || pos > this.length) {
+            return this;
+        }
+
+      if(pos === 1) {
+        if(this.length === 1) {
+            this.root = undefined
+            this.tail = undefined 
+        } else {
+            this.root = this.root!.next 
+        } 
+      } else {
+        let previous = this.root!
+        
+        for(let i = 2; i < pos; i++) {
+            previous = previous.next! 
+        }
+
+        if(previous.next === this.tail) {
+            this.tail = previous
+        }
+        previous.next = previous.next!.next
+      }
+      this.length-- 
+      return this;   
+    }
+
     getLength(){
         return this.length
     }
@@ -80,13 +108,23 @@ linkedList.print()
 console.log('****************')
 
 linkedList.insertAt(0, 1)
-linkedList.insertAt(-1, 5)
 linkedList.insertAt(0, 3)
+linkedList.insertAt(-1, 6)
+
 console.log('****************')
 linkedList.print()
 console.log('****************')
-linkedList.insertAt(0, 6)
+// linkedList.insertAt(0, 6)
 
+// console.log('****************')
+// linkedList.print()
+// console.log('****************')
+
+linkedList.removeAt(6)
+linkedList.removeAt(3)
+linkedList.removeAt(1)
+
+console.log(`List length: ${linkedList.getLength()}`)
 console.log('****************')
 linkedList.print()
 console.log('****************')
