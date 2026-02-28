@@ -33,7 +33,7 @@ class LinkedList<T>{
         if(pos === 1) {
             node.next = this.root
             this.root = node
-            if(!this.root) this.tail = node; 
+            if(!this.tail) this.tail = node;             
         } else if(pos === this.length + 1) {
             this.tail!.next = node
             this.tail = node
@@ -52,9 +52,9 @@ class LinkedList<T>{
         return this
     }
 
-    removeAt(pos: number) {
+    removeAt(pos: number): boolean {
       if(pos < 1 || pos > this.length) {
-            return this;
+            return false;
         }
 
       if(pos === 1) {
@@ -77,7 +77,7 @@ class LinkedList<T>{
         previous.next = previous.next!.next
       }
       this.length-- 
-      return this;   
+      return true;   
     }
 
     reverse() {
@@ -118,24 +118,17 @@ class LinkedList<T>{
         if(!this.root) return false;
         
         if(this.root.value === value) {
-            
-            if(this.root === this.tail) {
-                this.root = undefined
-                this.tail = undefined
-            } else {
-                this.root = this.root.next 
-            }
-
-            this.length--
-            return true 
+            return this.removeAt(1)
         }
 
         let prev = this.root 
         let current = prev.next 
 
         while(current) {
+
             if(current.value === value) {
                 prev.next = current.next 
+
                 if(current === this.tail) this.tail = prev
                 this.length--
                 return true
@@ -198,7 +191,7 @@ linkedList.print()
 console.log('****************')
 
 
-linkedList.inverse()
+linkedList.reverse()
 console.log('****************')
 linkedList.print()
 console.log('****************')
