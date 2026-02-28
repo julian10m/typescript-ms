@@ -115,10 +115,37 @@ class LinkedList<T>{
     }
 
     remove(value: T): boolean {
-        const found = this.find(value)
-        if (!found) return false;
-        this.removeAt(found.pos)
-        return true;
+        if(!this.root) return false;
+        
+        if(this.root.value === value) {
+            
+            if(this.root === this.tail) {
+                this.root = undefined
+                this.tail = undefined
+            } else {
+                this.root = this.root.next 
+            }
+
+            this.length--
+            return true 
+        }
+
+        let prev = this.root 
+        let current = prev.next 
+
+        while(current) {
+            if(current.value === value) {
+                prev.next = current.next 
+                if(current === this.tail) this.tail = prev
+                this.length--
+                return true
+            }
+
+            prev = current 
+            current = current.next
+        }
+
+        return false 
     }
 
     getLength(){
