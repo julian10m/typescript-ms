@@ -80,6 +80,31 @@ class LinkedList<T>{
       return this;   
     }
 
+    inverse() {
+        if(!this.length || this.length === 1) {
+            return this 
+        }
+
+        let prev = this.root!
+        let current = prev.next!
+        let future = current.next
+        
+        prev.next = undefined
+        this.tail = prev 
+
+        while(future){
+            current.next = prev 
+            prev = current 
+            current = future 
+            future = future.next            
+        }
+        
+        current.next = prev 
+        this.root = current
+
+        return this;
+    }
+
     getLength(){
         return this.length
     }
@@ -128,3 +153,10 @@ console.log(`List length: ${linkedList.getLength()}`)
 console.log('****************')
 linkedList.print()
 console.log('****************')
+
+
+linkedList.inverse()
+console.log('****************')
+linkedList.print()
+console.log('****************')
+console.log(`List length: ${linkedList.getLength()}`)
