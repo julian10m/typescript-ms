@@ -11,11 +11,11 @@ class LinkedList<T>{
     add(value: T) {
         const node = new ListNode(value)
 
-        if(!this.root || !this.tail) {
+        if(!this.root) {
             this.root = node
             this.tail = node
         } else {
-            this.tail.next = node 
+            this.tail!.next = node 
             this.tail = node
         }
 
@@ -25,31 +25,27 @@ class LinkedList<T>{
 
     insertAt(value: T, pos: number) {
         if(pos < 1 || pos > this.length + 1) {
-            return;
+            return this;
         }
 
         const node = new ListNode(value);
 
-        if(pos == 1) {
+        if(pos === 1) {
             node.next = this.root
             this.root = node
-            if(!this.length) {
-                this.tail = node
-            }
-        } else if(pos == this.length + 1) {
+            if(!this.length) this.tail = node; 
+        } else if(pos === this.length + 1) {
             this.tail!.next = node
             this.tail = node
         } else {
-            let current = this.root!
-            let currentPos = 2 
+            let previous = this.root!
 
-            while(currentPos < pos) {
-                current = current.next!
-                currentPos++ 
+            for(let i = 2; i < pos; i++) {
+                previous = previous.next!
             }
 
-            node.next = current.next!
-            current.next = node
+            node.next = previous.next
+            previous.next = node
         }
 
         this.length++
